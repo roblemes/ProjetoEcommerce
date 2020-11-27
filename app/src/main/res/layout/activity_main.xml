@@ -12,6 +12,50 @@
         android:padding="20dp"
         tools:context=".MainActivity">
 
+        <EditText
+            android:id="@+id/inputNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite o nome do produto" />
+        <EditText
+            android:id="@+id/inputMarca"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite a marca do produto" />
+        <EditText
+            android:id="@+id/inputCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite a categoria do produto" />
+        <EditText
+            android:id="@+id/inputValor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite o valor do produto" />
+
+        <EditText
+            android:id="@+id/inputEstoque"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite a quantidade em estoque" />
+        <EditText
+            android:id="@+id/inputAvaliacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite a avaliação do produto" />
+        <EditText
+            android:id="@+id/inputGarantia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite a garantia do produto" />
+
+
+        <Button
+            android:onClick="addProduto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Adicionar produto"/>
+
         <Button
             android:onClick="consultar"
             android:layout_width="match_parent"

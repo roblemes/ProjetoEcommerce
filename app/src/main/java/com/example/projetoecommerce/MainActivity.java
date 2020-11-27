@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -24,12 +25,26 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     TextView textResult;
+    EditText inputNome;
+    EditText inputMarca;
+    EditText inputCategoria;
+    EditText inputValor;
+    EditText inputEstoque;
+    EditText inputAvaliacao;
+    EditText inputGarantia;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textResult = findViewById(R.id.textResult);
+        inputNome = findViewById(R.id.inputNome);
+        inputMarca = findViewById(R.id.inputMarca);
+        inputCategoria = findViewById(R.id.inputCategoria);
+        inputValor = findViewById(R.id.inputValor);
+        inputEstoque = findViewById(R.id.inputEstoque);
+        inputAvaliacao = findViewById(R.id.inputAvaliacao);
+        inputGarantia = findViewById(R.id.inputGarantia);
     }
 
     public void consultar(View view) {
@@ -90,4 +105,61 @@ public class MainActivity extends AppCompatActivity {
 
         queue.add(request);
     }
+
+    public void addProduto(View view) {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        //textResult.setText("Carregando..");
+
+        String url = "http://10.0.2.2:8000/ecommerce/";
+
+        final String nomeP = inputNome.getText().toString();
+        String marcaP = inputMarca.getText().toString();
+        String catP = inputCategoria.getText().toString();
+        String valorP = inputValor.getText().toString();
+        String estoqueP = inputEstoque.getText().toString();
+        String avalP = inputAvaliacao.getText().toString();
+        String garantiaP = inputGarantia.getText().toString();
+        JSONObject produto = new JSONObject();
+
+        try {
+            produto.put("produto_nome", nomeP);
+            produto.put("produto_marca", marcaP);
+            produto.put("produto_categoria", catP);
+            produto.put("produto_valor", valorP);
+            produto.put("produto_estoque", estoqueP);
+            produto.put("produto_avaliacao", avalP);
+            produto.put("produto_garantia", garantiaP);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,
+                url,
+                produto,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        textResult.setText(response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        textResult.setText(error.getMessage());
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("X-Api-Key", "JISBaIhz.yJTHqlcL0xjdfWOgMzDOXTxzPYy4aAMm");
+
+                return params;
+            }
+        };
+        queue.add(request);
+
+
+    }
+
 }
